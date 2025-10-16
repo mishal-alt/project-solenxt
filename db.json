@@ -1,0 +1,165 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Adidas OZWEEGO",
+      "price": 18999,
+      "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-06T171509.167.png?v=1759751239",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": true
+    },
+    {
+      "id": 2,
+      "name": "Jordan FLIGHT COURT",
+      "price": 19695,
+      "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": true
+    },
+    {
+      "id": 3,
+      "name": "NIKE DUNK LOW RETRO",
+      "price": 11895,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 4,
+      "name": "Nike AIR MAX 90 ESS+O",
+      "price": 15795,
+      "image": "https://www.superkicks.in/cdn/shop/files/7_3cb9c6a2-8da5-4c0d-92fa-cade66b2010d.jpg?v=1751957769&width=1946",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": true
+    },
+    {
+      "id": 5,
+      "name": "Puma SPEEDCAT",
+      "price": 11999,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_b994e537-82e0-4161-a181-2d924bc3d8c7.png?v=1759750940&width=1946",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 6,
+      "name": "New Balance 1906U",
+      "price": 16999,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_1cba4195-69e7-49e2-955f-de0df4f7e821.png?v=1758270321&width=493",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 7,
+      "name": "Nike AAIR MAX 90",
+      "price": 14995,
+      "image": "https://www.superkicks.in/cdn/shop/files/4_ff29db91-7a1f-4a5f-9095-6bdeabe3a222.png?v=1758179484&width=1946",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 8,
+      "name": "New Balance9060",
+      "price": 17999,
+      "image": "https://www.superkicks.in/cdn/shop/files/5_d7d9ad3a-4096-4104-86cc-e327fba8cc3a.png?v=1755076375&width=1946",
+      "cat": "men",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": true
+    },
+    {
+      "id": 9,
+      "name": "Puma PALERMO MODA VINTAGE",
+      "price": 10795,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_d5b0525e-e9b4-486b-826d-aed929f837fe.png?v=1759750881&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 10,
+      "name": "Jordan AIR JORDAN 1 LOW EASYON",
+      "price": 12395,
+      "image": "https://www.superkicks.in/cdn/shop/files/4_42_3e73a175-7bba-4810-b250-5ffbe8114a81.jpg?v=1746267197&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 11,
+      "name": "Puma SPEEDCAT ZEBRA",
+      "price": 11799,
+      "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-09T001042.252.png?v=1759948902&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    
+    {
+      "id": 12,
+      "name": "New Balance 471",
+      "price": 12295,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_e8d2d73b-0d72-44e2-8c79-99cb75a58724.png?v=1758270265&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 13,
+      "name": "adidas ANTHONY EDWARDS 2",
+      "price": 12999,
+      "image": "https://www.superkicks.in/cdn/shop/files/2_4d5e3903-fbda-44cf-8338-5c1cacc5c21e.png?v=1760337055&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 14,
+      "name": "Nike AIR MAX MOTO 2K",
+      "price": 9999,
+      "image": "https://www.superkicks.in/cdn/shop/files/4_9a48a77c-cb99-4f8a-89c9-0798c6749ede.png?v=1758713759&width=1946",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 15,
+      "name": "New Balance BB550",
+      "price": 14395,
+      "image": "https://www.superkicks.in/cdn/shop/files/1_15_bcb187e5-e322-4139-8269-f3f286187b60.png?v=1753954481&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    },
+    {
+      "id": 16,
+      "name": "Nike STRUCTURE 26",
+      "price": 15988,
+      "image": "https://www.superkicks.in/cdn/shop/files/29-july_6d72ecdf-eff7-41e1-aa54-aceec3a36316.png?v=1754999014&width=493",
+      "cat": "women",
+      "discription": "Where performance meets premium style — made for everyday wear",
+      "stoke": 10,
+      "premium": false
+    }
+  ]
+}
