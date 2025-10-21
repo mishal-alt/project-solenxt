@@ -1,11 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiSearch, FiHeart, FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 import logo from "../assets/logo.png";
-import { Link } from 'react-router-dom';
+import toast from "react-hot-toast";
+import { Link, useNavigate } from 'react-router-dom';
+
+
+const checkLoginStatus = () => {
+  // Returns true if either currentUser or adminUser exists in localStorage
+  return localStorage.getItem('currentUser') || localStorage.getItem('adminUser');
+};
+
+
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!checkLoginStatus());
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedName = JSON.parse(localStorage.getItem('currentUser'))
+    if (storedName) {
+      setUsername(storedName.fullName);
+    }
+  }, [username]);
+
+  // Function to handle logging out
+  const handleLogout = () => {
+    // 1. Remove user data from localStorage
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('adminUser');
+
+    // 2. Update state to trigger re-render of the navbar buttons
+    setIsLoggedIn(false);
+
+    // 3. CRITICAL: Dispatch the event to update all components immediately
+    window.dispatchEvent(new Event('storage'));
+
+    toast.success("Logged out successfully!");
+    navigate("/login"); // Redirect to the login page
+    window.location.reload(); // <-- refreshes the current page
+
+  }
+
+
+  // useEffect to listen for the custom 'storage' event (dispatched from Login/Signup)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      // Re-check the login status whenever the custom 'storage' event is dispatched
+      setIsLoggedIn(!!checkLoginStatus());
+    };
+
+    // Add event listener
+    window.addEventListener('storage', handleStorageChange);
+
+    // Initial check (to ensure correct state on page load)
+    handleStorageChange();
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
   return (
     <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
       <div className="container mx-auto flex items-center justify-between ">
@@ -58,20 +115,29 @@ export default function Navbar() {
           </Link>
         </nav>
         <div className="flex items-center space-x-5">
-          <div className="relative hidden md:block">
-            <FiSearch className="absolute left-3 top-2.5 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search for shoes..."
-              className="pl-9 pr-3 py-2 rounded-full bg-gray-100 text-sm focus:ring-2 focus:ring-black -400 outline-none"
-            />
-          </div>
-
           <Link to='/wishlist'><FiHeart className="text-2xl text-gray-600 hover:text-black -500 cursor-pointer transition" /></Link>
           <Link to='/cart'><FiShoppingBag className="text-2xl text-gray-600 hover:text-black -500 cursor-pointer transition" /></Link>
+          <span className="text-black font-medium">HI {username}</span>
 
-          <div className="hidden md:flex items-center space-x-3">
-            <button className="text-sm font-medium text-gray-70 hover:text-white -500"><Link to='/login' className="text-black font-semibold no-underline hover:underline hover:text-gray-700">Login In</Link></button>
+          {/* Dynamic Login/Logout Button (The Core Change) */}
+          <div className="hidden md:block">
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-white px-4 py-2 bg-black rounded-lg hover:bg-gray-800 transition"
+              >
+                Logout
+
+              </button>
+
+            ) : (
+              <Link
+                to="/login"
+                className="text-sm font-medium text-gray-700 hover:text-black transition"
+              >
+                Login
+              </Link>
+            )}
 
           </div>
 
@@ -119,6 +185,7 @@ export default function Navbar() {
               Sale
               <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
+            <span className="text-black font-medium">{username}</span>
             <button className="text-sm font-medium text-gray-700 hover:text-white -500">Sign In</button>
 
           </nav>

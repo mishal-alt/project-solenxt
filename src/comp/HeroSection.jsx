@@ -26,7 +26,7 @@ const HeroSection = () => {
                     </span>
                 </h1>
             </div>
-            <div className="absolute inset-30   flex flex-col justify-center items-center text-center mt-80">
+            <div className="absolute inset-30   flex flex-col justify-center items-center text-center mt-100">
                 <Link to='/product'><a
                     href=""
                     className="inline-flex items-center justify-center 

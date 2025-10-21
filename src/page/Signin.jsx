@@ -1,116 +1,197 @@
-import { useState } from "react";
+// src/pages/Signup.jsx
+import { useEffect, useState } from "react";
+import axios from "axios";
+import bcrypt from "bcryptjs";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
-export default function Signup() {
-  const [formData, setFormData] = useState({
-    name: "",
+const Signup = () => {
+  const [form, setForm] = useState({
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState({});
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
+  const loginForm = () => {
+    navigate("/login");
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const validateSignup = () => {
+    const newErrors = {};
+    if (!form.fullName.trim()) newErrors.fullName = "Name is required";
+    if (!form.email.includes("@")) newErrors.email = "Invalid email";
+    if (form.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!/[A-Z]/.test(form.password)) {
+      newErrors.password = "Password must include at least one uppercase letter";
+    } else if (!/[a-z]/.test(form.password)) {
+      newErrors.password = "Password must include at least one lowercase letter";
+    } else if (!/\d/.test(form.password)) {
+      newErrors.password = "Password must include at least one number";
+    } else if (!/[@#$%&*]/.test(form.password)) {
+      newErrors.password = "Password must include at least one special character";
+    }
+    if (form.password !== form.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signup Data:", formData);
+    const newErrors = validateSignup();
+    setError(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const existingUsers = await axios.get("http://localhost:3000/user");
+        if (existingUsers.data.some((user) => user.email === form.email)) {
+          setError({ email: "Email already exists" });
+          return;
+        }
+
+        const hashedPassword = await bcrypt.hash(form.password, 10);
+        const newUser = {
+          joinDate: new Date().toISOString(),
+          fullName: form.fullName,
+          email: form.email,
+          password: hashedPassword,
+          isBlock: false,
+          cart: [],
+          wishlist: [],
+          orders: [],
+        };
+
+        await axios.post("http://localhost:3000/user", newUser);
+        localStorage.setItem("currentUser", JSON.stringify(newUser));
+        toast.success("Registered successfully!");
+        setError({});
+        
+        // ✅ Clear form only after successful registration
+        setForm({ fullName: "", email: "", password: "", confirmPassword: "" });
+
+        navigate("/");
+        window.location.reload(); // refresh current page after success
+      } catch (err) {
+        console.error(err);
+        toast.error("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
-    <div className="flex h-screen mt-25">
-      {/* Left Side - Centered Brand */}
-      <div className="hidden md:flex w-1/2 bg-black items-center justify-center">
-        <h1 className="text-6xl font-extrabold tracking-tight text-white text-center">
-          SOLE<span className="text-gray-400">.NXT</span>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 py-20 px-6 mt-20">
+      <div className="bg-white shadow-2xl rounded-2xl w-full max-w-lg p-10 border border-gray-100 transition-transform transform hover:scale-[1.01] duration-300">
+        <h1 className="text-4xl font-semibold text-gray-900 text-center mb-6 tracking-tight">
+          Create Your Account
         </h1>
-      </div>
+        <p className="text-center text-gray-500 mb-10 text-sm">
+          Join us and explore exclusive collections.
+        </p>
 
-      {/* Right Side - Signup Form */}
-      <div className="flex w-full md:w-1/2 items-center justify-center bg-white">
-        <form
-          onSubmit={handleSubmit}
-          className="w-80 md:w-96 bg-white rounded-2xl shadow-xl p-8"
-        >
-          <h2 className="text-3xl font-bold text-center text-black mb-8">
-            Create Account 🖤
-          </h2>
-
-          <div className="mb-5">
-            <label className="block text-gray-700 font-medium mb-2">
-              Full Name
+        <form className="space-y-6" onSubmit={handleSubmit} autoComplete="off">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name *
             </label>
             <input
               type="text"
-              name="name"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition"
-              placeholder="Your Name"
-              value={formData.name}
+              name="fullName"
+              value={form.fullName}
               onChange={handleChange}
-              required
+              placeholder="Enter your full name"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
+            {error.fullName && (
+              <p className="text-red-600 text-sm mt-1">{error.fullName}</p>
+            )}
           </div>
 
-          <div className="mb-5">
-            <label className="block text-gray-700 font-medium mb-2">
-              Email
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Email *
             </label>
             <input
               type="email"
               name="email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition"
-              placeholder="you@example.com"
-              value={formData.email}
+              value={form.email}
               onChange={handleChange}
-              required
+              placeholder="Enter your email address"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
+            {error.email && (
+              <p className="text-red-600 text-sm mt-1">{error.email}</p>
+            )}
           </div>
 
-          <div className="mb-5">
-            <label className="block text-gray-700 font-medium mb-2">
-              Password
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password *
             </label>
             <input
               type="password"
               name="password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition"
-              placeholder="••••••••"
-              value={formData.password}
+              value={form.password}
               onChange={handleChange}
-              required
+              placeholder="Enter new password"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
+            {error.password && (
+              <p className="text-red-600 text-sm mt-1">{error.password}</p>
+            )}
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">
-              Confirm Password
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm Password *
             </label>
             <input
               type="password"
               name="confirmPassword"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition"
-              placeholder="••••••••"
-              value={formData.confirmPassword}
+              value={form.confirmPassword}
               onChange={handleChange}
-              required
+              placeholder="Confirm your password"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
+            {error.confirmPassword && (
+              <p className="text-red-600 text-sm mt-1">{error.confirmPassword}</p>
+            )}
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 mt-2 bg-black text-white font-semibold rounded-xl hover:bg-gray-800 transition-transform hover:-translate-y-1"
+            className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-all duration-300 font-medium text-base shadow-md hover:shadow-lg"
           >
-            Sign Up
+            Create Account
           </button>
 
-          <p className="text-center text-gray-500 text-sm mt-6">
-            Already have an account?{" "}
-            <a href="/login" className="text-black font-semibold hover:underline">
-              Login
-            </a>
-          </p>
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 mb-1">Already have an account?</p>
+            <button
+              type="button"
+              className="text-black hover:underline hover:text-gray-700 font-medium"
+              onClick={loginForm}
+            >
+              Login Now
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
-}
+};
+
+export default Signup;

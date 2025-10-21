@@ -11,6 +11,9 @@ import Login from './page/Login'
 import Signin from './page/Signin'
 import Navbar from './comp/Nav'
 import Footer from './comp/Footer'
+import Singleproduct from './page/Singlepro'
+
+ 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 function App() {
 
@@ -18,6 +21,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
+         
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/men' element={<Men />} />
@@ -31,7 +35,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/wishlist' element={<Wishlist />} />
           <Route path='/footer' element={<Footer />} />
-
+          <Route path="/product/:id" element={<Singleproduct/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
