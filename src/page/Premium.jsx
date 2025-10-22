@@ -7,7 +7,7 @@ function Premium() {
     const [premium, setPremium] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/products")
+        fetch("http://localhost:3001/products")
             .then((res) => res.json())
             .then((data) => {
                 const premiumonly = data.filter((item) => item.premium === true);

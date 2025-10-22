@@ -11,7 +11,7 @@ function Singleproduct() {
     setLoading(true);
 
     // 🎯 CORRECTED: Fetch only the specific product using its ID in the URL
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`http://localhost:3001/products/${id}`)
       .then((res) => {
         // json-server returns a 404 for not found, but a successful fetch with an empty body
         // is also common if the resource doesn't exist. Checking the response status is robust.

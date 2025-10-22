@@ -1,5 +1,5 @@
 {
-  "user": [
+  "users": [
     {
       "id": "d04f",
       "joinDate": "2025-10-17T04:26:44.031Z",
@@ -67,26 +67,158 @@
       "orders": []
     },
     {
-      "id": "c25a",
-      "joinDate": "2025-10-17T11:36:53.452Z",
-      "fullName": "mishal",
-      "email": "mishal@gmail.com",
-      "password": "$2b$10$AW60CeX0I8SewOr7rFkyH.umbTApOe42h8nOwTLvkOAcT1LNNuxDG",
-      "isBlock": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": []
-    },
-    {
       "id": "7cf3",
       "joinDate": "2025-10-17T14:16:45.213Z",
       "fullName": "mashood",
       "email": "mashood@gmail.com",
       "password": "$2b$10$HHJHcYQmQPW2hbS/s71uHe2cfsFH5VT5xtR08zGTudu.8ratCMmKC",
       "isBlock": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": []
+      "cart": [
+        {
+          "id": "2",
+          "name": "Jordan FLIGHT COURT",
+          "price": 19695,
+          "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+          "cat": "men",
+          "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+          "stoke": 10,
+          "premium": true,
+          "quantity": 1
+        }
+      ],
+      "wishlist": [
+        "2",
+        "3"
+      ],
+      "orders": [
+        {
+          "id": 1761060743287,
+          "items": [
+            {
+              "id": "4",
+              "name": "Nike AIR 90 ESS+O",
+              "price": 15795,
+              "image": "https://www.superkicks.in/cdn/shop/files/7_3cb9c6a2-8da5-4c0d-92fa-cade66b2010d.jpg?v=1751957769&width=1946",
+              "cat": "men",
+              "discription": "Classic Air heritage meets upgraded comfort. The Air Max 90 ESS+O features signature Max Air cushioning and durable overlays — delivering an effortlessly stylish look that’s built to last.",
+              "stoke": 0,
+              "premium": true,
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "name": "Jordan FLIGHT COURT",
+              "price": 19695,
+              "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+              "cat": "men",
+              "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+              "stoke": 10,
+              "premium": true,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "faa a",
+            "email": "mishaaalkv@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "India"
+          },
+          "total": 35490,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-21T15:32:23.287Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1761061370445,
+          "items": [
+            {
+              "id": "3",
+              "name": "NIKE LOW RETRO",
+              "price": 11895,
+              "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
+              "cat": "men",
+              "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
+              "stoke": 10,
+              "premium": false,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "faa a",
+            "email": "mishaaalkv@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "India"
+          },
+          "total": 11895,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-21T15:42:50.445Z",
+          "status": "Shipped"
+        },
+        {
+          "id": 1761063375719,
+          "items": [
+            {
+              "id": "3",
+              "name": "NIKE LOW RETRO",
+              "price": 11895,
+              "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
+              "cat": "men",
+              "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
+              "stoke": 10,
+              "premium": false,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "faa a",
+            "email": "mishaaalkv@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "India"
+          },
+          "total": 11895,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-21T16:16:15.719Z",
+          "status": "Shipped"
+        },
+        {
+          "id": 1761063428816,
+          "items": [
+            {
+              "id": "3",
+              "name": "NIKE LOW RETRO",
+              "price": 11895,
+              "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
+              "cat": "men",
+              "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
+              "stoke": 8,
+              "premium": false,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "faa a",
+            "email": "mishaaalkv@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "India"
+          },
+          "total": 11895,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-21T16:17:08.816Z",
+          "status": "Shipped"
+        }
+      ]
     },
     {
       "id": "a331",
@@ -142,6 +274,17 @@
       "cart": [],
       "wishlist": [],
       "orders": []
+    },
+    {
+      "id": "f261",
+      "joinDate": "2025-10-21T04:43:35.304Z",
+      "fullName": "neethu",
+      "email": "neethu@gmail.com",
+      "password": "$2b$10$lG.qJeZSTIHdVVuAc68gvObmKq5sDi42Z8rxuxWGxK6UYjpn3wcdO",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": []
     }
   ],
   "products": [
@@ -152,7 +295,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-06T171509.167.png?v=1759751239",
       "cat": "men",
       "discription": "Blending retro inspiration with modern performance, the Adidas OZWEEGO delivers next-level comfort and style. With its plush cushioning and lightweight mesh upper, it’s designed for all-day wear — from the streets to the studio.",
-      "stoke": 9,
+      "stoke": 7,
       "premium": true
     },
     {
@@ -172,7 +315,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
       "cat": "men",
       "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
-      "stoke": 10,
+      "stoke": 7,
       "premium": false
     },
     {

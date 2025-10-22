@@ -57,7 +57,7 @@ const Signup = () => {
 
     if (Object.keys(newErrors).length === 0) {
       try {
-        const existingUsers = await axios.get("http://localhost:3000/user");
+        const existingUsers = await axios.get("http://localhost:3001/users");
         if (existingUsers.data.some((user) => user.email === form.email)) {
           setError({ email: "Email already exists" });
           return;
