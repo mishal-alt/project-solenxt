@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ const LoginForm = () => {
         toast.success("Login successful!");
         window.dispatchEvent(new Event("storage"));
         navigate("/");
-        window.location.reload(); // <-- refreshes the current page
+          window.location.reload(); // <-- refreshes the current page
 
       }
     } catch (err) {

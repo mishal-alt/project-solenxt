@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 function Product() {
   const navigate = useNavigate();
@@ -60,6 +60,13 @@ function Product() {
 
     await updateUserData({ wishlist: updatedWishlist });
     window.dispatchEvent(new Event("wishlistUpdated"));
+
+    // ✅ Toast notification
+    if (updatedWishlist.includes(id)) {
+      toast.success("Added to wishlist!");
+    } else {
+      toast.info("Removed from wishlist!");
+    }
   };
 
   // ✅ Add to cart with login check
@@ -82,6 +89,9 @@ function Product() {
 
     await updateUserData({ cart: updatedCart });
     window.dispatchEvent(new Event("cartUpdated"));
+
+    // ✅ Toast notification
+    toast.success("Added to cart!");
   };
 
   // ✅ Filtering + Sorting
@@ -167,11 +177,10 @@ function Product() {
                 {/* Wishlist */}
                 <button
                   onClick={() => toggleWishlist(product.id)}
-                  className={`absolute top-4 right-4 text-2xl transition ${
-                    currentUser
+                  className={`absolute top-4 right-4 text-2xl transition ${currentUser
                       ? "text-gray-500 hover:scale-110"
                       : "text-gray-400 cursor-not-allowed"
-                  }`}
+                    }`}
                 >
                   {wishlist.includes(product.id) ? (
                     <FaHeart className="text-red-500" />
@@ -190,7 +199,17 @@ function Product() {
                   <h2 className="mt-3 text-lg font-bold text-black">
                     {product.name}
                   </h2>
+
                   <p className="text-gray-700 mt-1">₹{product.price}</p>
+                  <p
+                    className={
+                      product.stoke > 0 ? 'text-green-500' : 'text-red-600 font-bold'
+                    }
+                  >
+                    {product.stoke > 0
+                      ? `In Stock (${product.stoke} left)`
+                      : 'Out of Stock'}
+                  </p>
                 </Link>
 
                 {/* Add to Cart / Go to Cart */}
@@ -207,11 +226,10 @@ function Product() {
                 ) : (
                   <button
                     onClick={() => addToCart(product)}
-                    className={`mt-3 w-full py-2 rounded-xl ${
-                      currentUser
+                    className={`mt-3 w-full py-2 rounded-xl ${currentUser
                         ? "bg-black hover:bg-gray-900"
                         : "bg-gray-500 cursor-not-allowed"
-                    } text-white transition`}
+                      } text-white transition`}
                   >
                     Add to Cart
                   </button>
@@ -232,11 +250,10 @@ function Product() {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-lg font-medium ${
-              currentPage === 1
+            className={`px-4 py-2 rounded-lg font-medium ${currentPage === 1
                 ? "bg-gray-700 text-gray-400 cursor-not-allowed"
                 : "bg-white text-black hover:bg-gray-200"
-            }`}
+              }`}
           >
             Prev
           </button>
@@ -248,11 +265,10 @@ function Product() {
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className={`px-4 py-2 rounded-lg font-medium ${
-              currentPage === totalPages
+            className={`px-4 py-2 rounded-lg font-medium ${currentPage === totalPages
                 ? "bg-gray-700 text-gray-400 cursor-not-allowed"
                 : "bg-white text-black hover:bg-gray-200"
-            }`}
+              }`}
           >
             Next
           </button>

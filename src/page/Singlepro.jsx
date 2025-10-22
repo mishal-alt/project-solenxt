@@ -1,33 +1,88 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Truck, CreditCard, RefreshCw } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 function Singleproduct() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ User and cart states
+  const [currentUser, setCurrentUser] = useState(
+    () => JSON.parse(localStorage.getItem("currentUser"))
+  );
+  const [cart, setCart] = useState(currentUser?.cart || []);
+
+  // ✅ Size selection
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  // ✅ Update user in DB
+  const updateUserData = async (updatedData) => {
+    if (!currentUser) return;
+    try {
+      await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+    } catch (error) {
+      console.error("Error updating user in DB:", error);
+    }
+  };
+
+  // ✅ Add to Cart
+  const addToCart = async (product) => {
+    if (!currentUser) {
+      toast.error("Please login first to add products to cart!");
+      navigate("/login");
+      return;
+    }
+
+    if (!selectedSize) {
+      toast.error("Please select a size before adding to cart!");
+      return;
+    }
+
+    const isAlreadyInCart = cart.some(
+      (item) => item.id === product.id && item.size === selectedSize
+    );
+    if (isAlreadyInCart) {
+      toast.info(`Size ${selectedSize} already in your cart!`);
+      return;
+    }
+
+    const updatedCart = [...cart, { ...product, quantity: 1, size: selectedSize }];
+    setCart(updatedCart);
+
+    const updatedUser = { ...currentUser, cart: updatedCart };
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+    setCurrentUser(updatedUser);
+
+    await updateUserData({ cart: updatedCart });
+
+    toast.success(`Added size ${selectedSize} to cart!`);
+  };
+
+  // ✅ Fetch product
   useEffect(() => {
     setLoading(true);
 
-    // 🎯 CORRECTED: Fetch only the specific product using its ID in the URL
     fetch(`http://localhost:3001/products/${id}`)
       .then((res) => {
-        // json-server returns a 404 for not found, but a successful fetch with an empty body
-        // is also common if the resource doesn't exist. Checking the response status is robust.
         if (!res.ok) {
           throw new Error('Product not found or server error');
         }
         return res.json();
       })
       .then((data) => {
-        // The server (json-server) now returns the single product directly
         setProduct(data);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching product:', error);
-        setProduct(null); // Explicitly set product to null on fetch error or 404
+        setProduct(null);
         setLoading(false);
       });
   }, [id]);
@@ -41,7 +96,7 @@ function Singleproduct() {
   }
 
   return (
-    <div className="container mx-auto p-8 bg-black text-amber-50 mt-23 ">
+    <div className="container mx-auto p-8 bg-black text-amber-50 mt-23">
       <div className="container mx-auto px-8">
         <h1 className="text-4xl font-extrabold mb-8">{product.name}</h1>
 
@@ -70,25 +125,39 @@ function Singleproduct() {
                 : 'Out of Stock'}
             </p>
 
-            {/* Shoe sizes */}
+            {/* ✅ Select Size */}
             <div className="flex gap-3 flex-wrap mt-10">
               {['7', '8', '9', '10', '11'].map((size) => (
                 <div
                   key={size}
-                  className={`w-10 h-10 flex items-center justify-center border rounded-md text-white cursor-pointer transition ${size === '9'
-                      ? 'bg-cyan-600 border-cyan-500 text-white'
-                      : 'bg-transparent border-gray-600 hover:border-cyan-500'
-                    }`}
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-10 h-10 flex items-center justify-center border rounded-md cursor-pointer transition ${
+                    selectedSize === size
+                      ? 'bg-cyan-600 border-cyan-500 text-white scale-105'
+                      : 'bg-transparent border-gray-600 text-white hover:border-cyan-500'
+                  }`}
                 >
                   {size}
                 </div>
               ))}
             </div>
 
-            {/* Add to Cart Button */}
-            <button className="w-full bg-cyan-500 text-white py-3 rounded-xl text-lg font-semibold hover:bg-cyan-600 transition mt-8">
-              Add to Cart
-            </button>
+            {/* ✅ Add to Cart / Go to Cart */}
+            {cart.some((item) => item.id === product.id && item.size === selectedSize) ? (
+              <button
+                onClick={() => navigate("/cart")}
+                className="w-full bg-green-600 text-white py-3 rounded-xl text-lg font-semibold hover:bg-green-700 transition mt-8"
+              >
+                Go to Cart
+              </button>
+            ) : (
+              <button
+                onClick={() => addToCart(product)}
+                className="w-full bg-cyan-500 text-white py-3 rounded-xl text-lg font-semibold hover:bg-cyan-600 transition mt-8"
+              >
+                Add to Cart
+              </button>
+            )}
 
             {/* Icons Section */}
             <div className="flex justify-around mt-12 text-sm text-gray-300">

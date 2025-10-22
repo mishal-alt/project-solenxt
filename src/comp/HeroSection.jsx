@@ -27,23 +27,16 @@ const HeroSection = () => {
                 </h1>
             </div>
             <div className="absolute inset-30   flex flex-col justify-center items-center text-center mt-100">
-                <Link to='/product'><a
-                    href=""
-                    className="inline-flex items-center justify-center 
+                <Link to='/product' className=' inline-flex items-center justify-center 
             px-10 py-4 text-lg font-semibold tracking-wider uppercase
             bg-transparent border-2 border-cyan-400 text-white 
             rounded-full shadow-lg transition duration-300 ease-in-out
             hover:bg-cyan-400 hover:text-black hover:shadow-cyan-400/50
-            focus:outline-none focus:ring-4 focus:ring-cyan-400/70
-            
-           
-            shadow-cyan-500/50 
-          "
-                    role="button"
-                >
+            focus:outline-none focus:ring-4 focus:ring-cyan-400/70 shadow-cyan-500/50 "'>
+                
                     View Products
                     <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </a>
+                
                 </Link>
             </div>
 

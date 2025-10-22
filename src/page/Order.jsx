@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 function Order() {
     const navigate = useNavigate();
@@ -134,7 +134,7 @@ function Order() {
         await updateUserData({ orders: updatedOrders });
         await updateProductStock(order.items);
 
-        toast.success("Order confirmed and stock updated!");
+        toast.success("Order confirmed ");
     };
 
     return (

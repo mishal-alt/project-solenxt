@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import qr from '../assets/qr.jpeg';
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 function Payment() {
     const navigate = useNavigate();

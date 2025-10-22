@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiHeart, FiShoppingBag, FiMenu, FiX, FiTruck } from "react-icons/fi";
 import logo from "../assets/logo.png";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 
 const checkLoginStatus = () => {
@@ -17,7 +17,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
         if (currentUser) {
             setUsername(currentUser.fullName); // ✅ gets full name
             setWishlistCount(currentUser.wishlist?.length || 0);

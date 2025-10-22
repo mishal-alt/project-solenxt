@@ -73,19 +73,7 @@
       "email": "mashood@gmail.com",
       "password": "$2b$10$HHJHcYQmQPW2hbS/s71uHe2cfsFH5VT5xtR08zGTudu.8ratCMmKC",
       "isBlock": false,
-      "cart": [
-        {
-          "id": "2",
-          "name": "Jordan FLIGHT COURT",
-          "price": 19695,
-          "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
-          "cat": "men",
-          "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
-          "stoke": 10,
-          "premium": true,
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "wishlist": [
         "2",
         "3"
@@ -249,9 +237,131 @@
       "email": "naheel@gmail.com",
       "password": "$2b$10$IdGpgtv5U7n54eKA3ampq.FpuLp/gbeNpQ8fmn0.TSnFI.dt4hmAq",
       "isBlock": false,
-      "cart": [],
+      "cart": [
+        {
+          "id": "2",
+          "name": "Jordan FLIGHT COURT",
+          "price": 19695,
+          "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+          "cat": "men",
+          "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+          "stoke": 8,
+          "premium": true,
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Nike AIR MAX ",
+          "price": 14995,
+          "image": "https://www.superkicks.in/cdn/shop/files/4_ff29db91-7a1f-4a5f-9095-6bdeabe3a222.png?v=1758179484&width=1946",
+          "cat": "men",
+          "discription": "A modern classic built for everyday comfort. The Nike Air Max 90 keeps the legendary visible Air unit while refreshing its design with breathable materials and refined details for timeless appeal.",
+          "stoke": 10,
+          "premium": false,
+          "quantity": 1
+        }
+      ],
       "wishlist": [],
-      "orders": []
+      "orders": [
+        {
+          "id": 1761108643116,
+          "items": [
+            {
+              "id": "2",
+              "name": "Jordan FLIGHT COURT",
+              "price": 19695,
+              "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+              "cat": "men",
+              "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+              "stoke": 10,
+              "premium": true,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "Mishal ",
+            "email": "mishalkvmishal@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "india"
+          },
+          "total": 19695,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-22T04:50:43.116Z",
+          "status": "Shipped"
+        },
+        {
+          "id": 1761108922776,
+          "items": [
+            {
+              "id": "22",
+              "name": "AIR JORDAN 1 MID",
+              "price": 12295,
+              "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-15T171709.048.png?v=1760529542&width=493",
+              "cat": "men",
+              "discription": "A bold fusion of heritage and innovation, the Nike Air Max 90 N7 features vibrant colorways and the iconic Max Air cushioning, delivering both style and comfort.",
+              "stoke": 10,
+              "premium": false,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "Mishal ",
+            "email": "mishalkvmishal@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "india"
+          },
+          "total": 12295,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-22T04:55:22.776Z",
+          "status": "Shipped"
+        },
+        {
+          "id": 1761118512081,
+          "items": [
+            {
+              "id": "22",
+              "name": "AIR JORDAN 1 MID",
+              "price": 12295,
+              "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-15T171709.048.png?v=1760529542&width=493",
+              "cat": "men",
+              "discription": "A bold fusion of heritage and innovation, the Nike Air Max 90 N7 features vibrant colorways and the iconic Max Air cushioning, delivering both style and comfort.",
+              "stoke": 10,
+              "premium": false,
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "name": "Jordan FLIGHT COURT",
+              "price": 19695,
+              "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+              "cat": "men",
+              "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+              "stoke": 9,
+              "premium": true,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "faa a",
+            "email": "mishaaalkv@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "India"
+          },
+          "total": 31990,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-22T07:35:12.081Z",
+          "status": "Shipped"
+        }
+      ]
     },
     {
       "id": "4d48",
@@ -282,6 +392,29 @@
       "email": "neethu@gmail.com",
       "password": "$2b$10$lG.qJeZSTIHdVVuAc68gvObmKq5sDi42Z8rxuxWGxK6UYjpn3wcdO",
       "isBlock": false,
+      "cart": [
+        {
+          "id": "2",
+          "name": "Jordan FLIGHT COURT",
+          "price": 19695,
+          "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+          "cat": "men",
+          "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+          "stoke": 9,
+          "premium": true,
+          "quantity": 1
+        }
+      ],
+      "wishlist": [],
+      "orders": []
+    },
+    {
+      "id": "0ece",
+      "joinDate": "2025-10-22T09:51:35.673Z",
+      "fullName": "ashida",
+      "email": "ashida@gmail.com",
+      "password": "$2b$10$2hAnfaot2JhST1Ks5srFMuo9ScKLSepCNOf1bnTmWStHuS/9NKByK",
+      "isBlock": false,
       "cart": [],
       "wishlist": [],
       "orders": []
@@ -305,7 +438,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
       "cat": "men",
       "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
-      "stoke": 10,
+      "stoke": 8,
       "premium": true
     },
     {
@@ -505,7 +638,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-15T171709.048.png?v=1760529542&width=493",
       "cat": "men",
       "discription": "A bold fusion of heritage and innovation, the Nike Air Max 90 N7 features vibrant colorways and the iconic Max Air cushioning, delivering both style and comfort.",
-      "stoke": 10,
+      "stoke": 8,
       "premium": false
     },
     {

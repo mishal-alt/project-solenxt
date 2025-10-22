@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -75,7 +75,7 @@ const Signup = () => {
           orders: [],
         };
 
-        await axios.post("http://localhost:3000/user", newUser);
+        await axios.post("http://localhost:3001/users", newUser);
         localStorage.setItem("currentUser", JSON.stringify(newUser));
         toast.success("Registered successfully!");
         setError({});
