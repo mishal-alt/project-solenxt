@@ -1,9 +1,8 @@
 // src/pages/Signup.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -63,24 +62,28 @@ const Signup = () => {
           return;
         }
 
-        const hashedPassword = await bcrypt.hash(form.password, 10);
+        // ✅ Store password in plain text (no hashing)
         const newUser = {
           joinDate: new Date().toISOString(),
           fullName: form.fullName,
           email: form.email,
-          password: hashedPassword,
+          password: form.password, // plain password
           isBlock: false,
+          isAdmin: false,
           cart: [],
           wishlist: [],
           orders: [],
         };
 
-        await axios.post("http://localhost:3001/users", newUser);
-        localStorage.setItem("currentUser", JSON.stringify(newUser));
+        // Save new user to JSON server and get the assigned id
+        const response = await axios.post("http://localhost:3001/users", newUser);
+        const savedUser = response.data; // includes id
+
+        // Store saved user in localStorage
+        localStorage.setItem("currentUser", JSON.stringify(savedUser));
+
         toast.success("Registered successfully!");
         setError({});
-        
-        // ✅ Clear form only after successful registration
         setForm({ fullName: "", email: "", password: "", confirmPassword: "" });
 
         navigate("/");

@@ -96,11 +96,11 @@ const About = () => {
                     <p className="text-gray-400 mb-8 max-w-xl mx-auto">
                         Explore our curated collections, dive into the culture on our blog, or reach out to our team of dedicated sole experts.
                     </p>
-                    <Link to='/premium'><a
+                    <Link to='/product'><a
                         href="/Home#premium-collection" // Placeholder link
                         className="inline-block px-8 py-3 text-lg font-medium text-black bg-pink-500 rounded-lg shadow-xl hover:bg-pink-400 transition transform hover:scale-105"
                     >
-                        Shop Premium Collection
+                        Shop 
                     </a>
                     </Link>
                 </div>

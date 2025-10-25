@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { FaHeart } from "react-icons/fa";
 
+
 function Wishlist() {
-  const [wishlist, setWishlist] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+
+  
+  const [wishlist, setWishlist] = useState([]); // store user wishlist product IDs
+  const [products, setProducts] = useState([]); // store all available products from DB
+  const [cart, setCart] = useState([]); // store user's cart items
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("currentUser"))
+    JSON.parse(localStorage.getItem("currentUser")) 
   );
 
+ 
   useEffect(() => {
     if (currentUser) {
-      setWishlist(currentUser.wishlist || []);
-      setCart(currentUser.cart || []);
+      setWishlist(currentUser.wishlist || []); 
+      setCart(currentUser.cart || []); 
     }
 
     fetch("http://localhost:3001/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.log(err));
+      .then((res) => res.json()) 
+      .then((data) => setProducts(data)) 
+      .catch((err) => console.log(err)); 
   }, []);
 
   const updateUserData = async (updatedData) => {
-    if (!currentUser) return;
+    if (!currentUser) return; 
     await fetch(`http://localhost:3001/users/${currentUser.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -31,32 +35,38 @@ function Wishlist() {
     });
   };
 
+ 
   const removeFromWishlist = async (id) => {
     if (!currentUser) return;
+
+   
     const updatedWishlist = (currentUser.wishlist || []).filter(
       (item) => item !== id
     );
+
     const updatedUser = { ...currentUser, wishlist: updatedWishlist };
+
     setWishlist(updatedWishlist);
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
     setCurrentUser(updatedUser);
+
     await updateUserData({ wishlist: updatedWishlist });
+
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-  // ✅ Modified addToCart → removes from wishlist after adding
+
   const addToCart = async (product) => {
     if (!currentUser) return;
 
     const currentCart = currentUser.cart || [];
+
     const isInCart = currentCart.find((item) => item.id === product.id);
 
-    // Add to cart if not already there
     const updatedCart = isInCart
       ? currentCart
       : [...currentCart, { ...product, quantity: 1 }];
 
-    // Remove product from wishlist after adding
     const updatedWishlist = (currentUser.wishlist || []).filter(
       (id) => id !== product.id
     );
@@ -72,6 +82,7 @@ function Wishlist() {
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
     setCurrentUser(updatedUser);
 
+    // Update in database
     await updateUserData({
       cart: updatedCart,
       wishlist: updatedWishlist,
@@ -80,6 +91,7 @@ function Wishlist() {
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
+  //  Get full product objects from wishlist IDs
   const wishlistItems = products.filter((item) => wishlist.includes(item.id));
 
   return (
@@ -103,7 +115,7 @@ function Wishlist() {
                 />
                 <div>
                   <Link
-                    to={`/product/${product.id}`}
+                    to={`/product/${product.id}`} // navigate to product details page
                     className="text-xl font-semibold hover:underline"
                   >
                     {product.name}
@@ -137,7 +149,7 @@ function Wishlist() {
         <div className="text-center mt-20">
           <p className="text-gray-300 text-lg">Your wishlist is empty</p>
           <Link
-            to="/"
+            to="/product"
             className="inline-block mt-6 bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition"
           >
             Browse Products

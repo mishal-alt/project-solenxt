@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiHeart, FiShoppingBag, FiMenu, FiX, FiTruck } from "react-icons/fi";
+import { FiHeart, FiShoppingBag, FiTruck } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
@@ -14,14 +14,23 @@ export default function Navbar() {
     const [username, setUsername] = useState("");
     const [wishlistCount, setWishlistCount] = useState(0);
     const [cartCount, setCartCount] = useState(0);
+    const [isAdmin, setIsAdmin] = useState(false); // Admin flag
     const navigate = useNavigate();
 
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+        const adminUser = JSON.parse(localStorage.getItem("adminUser") || "null");
+
         if (currentUser) {
-            setUsername(currentUser.fullName); // ✅ gets full name
+            setUsername(currentUser.fullName);
             setWishlistCount(currentUser.wishlist?.length || 0);
             setCartCount(currentUser.cart?.reduce((sum, item) => sum + item.quantity, 0) || 0);
+            setIsAdmin(false);
+        }
+
+        if (adminUser) {
+            setUsername(adminUser.fullName);
+            setIsAdmin(true);
         }
     }, []);
 
@@ -46,6 +55,7 @@ export default function Navbar() {
         localStorage.removeItem("currentUser");
         localStorage.removeItem("adminUser");
         setIsLoggedIn(false);
+        setIsAdmin(false);
         toast.success("Logged out successfully!");
         navigate("/login");
         window.location.reload();
@@ -70,21 +80,40 @@ export default function Navbar() {
                         <FiShoppingBag className="text-2xl text-gray-600 hover:text-black cursor-pointer transition" />
                         {cartCount > 0 && <span className="absolute -top-2 -right-2 text-xs bg-red-600 text-white rounded-full px-1">{cartCount}</span>}
                     </Link>
-                    {isLoggedIn && (
+                    {isLoggedIn && !isAdmin && (
                         <Link to="/order" className="relative">
                             <FiTruck className="text-2xl text-gray-600 hover:text-black cursor-pointer transition" />
                         </Link>
                     )}
 
-                    {/* ✅ Show logged-in user's full name */}
                     {isLoggedIn && (
                         <span className="text-gray-800 font-medium">HI {username}</span>
                     )}
 
-                    {isLoggedIn ? (
-                        <button onClick={handleLogout} className="text-sm bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-800 transition">Logout</button>
-                    ) : (
-                        <Link to="/login" className="text-sm bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-800 transition">Login</Link>
+                    {/* Admin button for admins */}
+                    {isAdmin && (
+                        <button
+                            onClick={() => navigate("/admin/dashboard")}
+                            className="text-sm bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-800 transition"
+                        >
+                            Admin
+                        </button>
+                    )}
+
+                    {/* Logout button for both normal users and admins */}
+                    {isLoggedIn && (
+                        <button
+                            onClick={handleLogout}
+                            className="text-sm bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-800 transition"
+                        >
+                            Logout
+                        </button>
+                    )}
+
+                    {!isLoggedIn && (
+                        <Link to="/login" className="text-sm bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-800 transition">
+                            Login
+                        </Link>
                     )}
                 </div>
             </div>

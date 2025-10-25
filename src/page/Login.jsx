@@ -1,12 +1,12 @@
 // src/pages/Login.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import bcrypt from "bcryptjs";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -14,21 +14,13 @@ const LoginForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    setForm({
-      email: "",
-      password: "",
-    });
-    setErrors({});
-  }, []);
-
+  // Redirect if already logged in
   useEffect(() => {
     const user = localStorage.getItem("currentUser");
     const admin = localStorage.getItem("adminUser");
-    if (user || admin) navigate("/");
+    if (user) navigate("/");
+    if (admin) navigate("/admin/dashboard"); // <-- redirect admin if already logged in
   }, [navigate]);
-
-  const signupForm = () => navigate("/signin");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -45,48 +37,58 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validateLogin();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     setErrors({});
     try {
       const response = await axios.get("http://localhost:3001/users");
       const users = response.data;
-      const user = users.find((user) => user.email === form.email);
+
+      // Find user by email & password (plain text)
+      const user = users.find(
+        u => u.email === form.email && u.password === form.password
+      );
+
       if (!user) {
         setErrors({ general: "Incorrect email or password" });
         toast.error("Incorrect email or password");
         return;
       }
-      const matchesPassword = await bcrypt.compare(form.password, user.password);
-      if (!matchesPassword) {
-        setErrors({ general: "Incorrect email or password" });
-        toast.error("Incorrect email or password");
+
+      // ✅ Blocked user check
+      if (user.isBlock) {
+        setErrors({ general: "Your account has been blocked. Please contact support." });
+        toast.error("Your account has been blocked. Please contact support.");
         return;
       }
 
+      // ✅ Admin login: store adminUser in localStorage
       if (user.isAdmin) {
         localStorage.setItem("adminUser", JSON.stringify(user));
         toast.success("Admin login successful");
-        window.dispatchEvent(new Event("storage"));
-        navigate("/");
-        window.location.reload(); // <-- refreshes the current page
-
+        navigate("/admin/dashboard");
       } else {
+        // Normal user login
         localStorage.setItem("currentUser", JSON.stringify(user));
         toast.success("Login successful!");
-        window.dispatchEvent(new Event("storage"));
         navigate("/");
-          window.location.reload(); // <-- refreshes the current page
-
       }
+
+      // Notify other tabs
+      window.dispatchEvent(new Event("storage"));
+      window.location.reload(); // Refresh UI
     } catch (err) {
       console.error(err);
       setErrors({ general: "Something went wrong. Please try again." });
     }
   };
+
+  const signupForm = () => navigate("/signin");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 py-20 px-6 mt-20">
@@ -95,7 +97,7 @@ const LoginForm = () => {
           Welcome Back
         </h1>
         <p className="text-center text-gray-500 mb-10 text-sm">
-          Log in to access your account and continue exploring.
+          Log in to access your account.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
@@ -111,9 +113,7 @@ const LoginForm = () => {
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
-            {errors.email && (
-              <p className="text-red-600 text-sm mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
@@ -128,9 +128,7 @@ const LoginForm = () => {
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
-            {errors.password && (
-              <p className="text-red-600 text-sm mt-1">{errors.password}</p>
-            )}
+            {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password}</p>}
           </div>
 
           {errors.general && (
