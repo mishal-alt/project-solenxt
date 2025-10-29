@@ -27,59 +27,64 @@
       ],
       "orders": [
         {
-          "id": 1761301620257,
+          "id": 1761562247221,
           "items": [
             {
-              "id": "2",
-              "name": "Jordan FLIGHT COURT",
-              "price": 19695,
-              "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+              "id": "3",
+              "name": "NIKE LOW RETRO",
+              "price": 11895,
+              "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
               "cat": "men",
-              "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
-              "stoke": 6,
-              "premium": true,
+              "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
+              "stoke": 4,
+              "premium": false,
               "quantity": 1
             }
           ],
           "billingInfo": {
-            "name": "Mishal ",
-            "email": "mishalkvmishal@gmail.com",
+            "name": "Adidas OZWEEGO",
+            "email": "7907385046",
             "address": "STRRET 33",
             "city": "KERALA",
             "postalCode": "98008",
             "country": "india"
           },
-          "total": 19695,
+          "total": 11895,
           "paymentMethod": "cod",
           "cardInfo": null,
-          "date": "2025-10-24T10:27:00.257Z",
-          "status": "Shipped"
+          "date": "2025-10-27T10:50:47.221Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1761562328982,
+          "items": [
+            {
+              "id": "23",
+              "name": "Nike AIR JORDAN 1 LOW",
+              "price": 11495,
+              "image": "https://www.superkicks.in/cdn/shop/files/4_191d756b-2cfa-4482-acb7-683b0963014c.png?v=1760527709&width=493",
+              "cat": "men",
+              "discription": "A bold fusion of heritage and innovation, the Nike Air Max 90 N7 features vibrant colorways and the iconic Max Air cushioning, delivering both style and comfort.",
+              "stoke": 10,
+              "premium": false,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "Mishal ",
+            "email": "anzil@gmail.com",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "india"
+          },
+          "total": 11495,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-27T10:52:08.982Z",
+          "status": "Cancelled"
         }
       ]
-    },
-    {
-      "id": "admin01",
-      "joinDate": "2025-10-17T04:26:44.031Z",
-      "fullName": "Admin",
-      "email": "admin@gmail.com",
-      "password": "admin@123",
-      "isBlock": false,
-      "isAdmin": true,
-      "cart": [],
-      "wishlist": [],
-      "orders": []
-    },
-    {
-      "id": "2f3f",
-      "joinDate": "2025-10-24T10:54:43.217Z",
-      "fullName": "nabeel",
-      "email": "nabeel@gmail.com",
-      "password": "Nabeel@123",
-      "isBlock": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": [],
-      "isAdmin": false
     },
     {
       "id": "a2f5",
@@ -319,9 +324,93 @@
       "password": "Naheel@123",
       "isBlock": false,
       "isAdmin": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": []
+      "cart": [
+        {
+          "id": "2",
+          "name": "Jordan FLIGHT COURT",
+          "price": 19695,
+          "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+          "cat": "men",
+          "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+          "stoke": "50",
+          "premium": true,
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "NIKE LOW RETRO",
+          "price": 11895,
+          "image": "https://www.superkicks.in/cdn/shop/files/1_0f042c7f-923b-4615-b0b2-09b9b68a9671.jpg?v=1746130640",
+          "cat": "men",
+          "discription": "A timeless icon reborn. The Nike Dunk Low Retro brings vintage vibes with modern comfort — featuring premium leather, bold color contrast, and a cushioned sole made for everyday flex.",
+          "stoke": 5,
+          "premium": false,
+          "quantity": 1
+        }
+      ],
+      "wishlist": [
+        "8"
+      ],
+      "orders": [
+        {
+          "id": 1761625434335,
+          "items": [
+            {
+              "id": "8",
+              "name": "New Balance9060",
+              "price": 17999,
+              "image": "https://www.superkicks.in/cdn/shop/files/5_d7d9ad3a-4096-4104-86cc-e327fba8cc3a.png?v=1755076375&width=1946",
+              "cat": "men",
+              "discription": "A bold expression of futuristic comfort. The New Balance 9060 blends chunky Y2K aesthetics with plush cushioning — perfect for those who demand both statement style and unmatched support.",
+              "stoke": 8,
+              "premium": true,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "Adidas OZWEEGO",
+            "email": "8086447727",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "india"
+          },
+          "total": 17999,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-28T04:23:54.335Z",
+          "status": "Shipped"
+        },
+        {
+          "id": 1761648630649,
+          "items": [
+            {
+              "id": "2",
+              "name": "Jordan FLIGHT COURT",
+              "price": 19695,
+              "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
+              "cat": "men",
+              "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
+              "stoke": "51",
+              "premium": true,
+              "quantity": 1
+            }
+          ],
+          "billingInfo": {
+            "name": "Mishal ",
+            "email": "7907385046",
+            "address": "STRRET 33",
+            "city": "KERALA",
+            "postalCode": "98008",
+            "country": "india"
+          },
+          "total": 19695,
+          "paymentMethod": "cod",
+          "cardInfo": null,
+          "date": "2025-10-28T10:50:30.649Z",
+          "status": "Shipped"
+        }
+      ]
     }
   ],
   "products": [
@@ -329,7 +418,7 @@
       "name": "Adidas OZWEEGO",
       "price": "18999",
       "cat": "men",
-      "stoke": 10,
+      "stoke": "11",
       "image": "https://www.superkicks.in/cdn/shop/files/1-2025-10-06T171509.167.png?v=1759751239",
       "id": "1"
     },
@@ -340,7 +429,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/4_26.png?v=1754388486&width=493",
       "cat": "men",
       "discription": "Step into legendary comfort with the Jordan Flight Court. Engineered with responsive cushioning and a durable rubber outsole, it keeps you grounded with every move — blending court-ready tech with streetwear energy.",
-      "stoke": 4,
+      "stoke": "50",
       "premium": true
     },
     {
@@ -390,7 +479,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/4_ff29db91-7a1f-4a5f-9095-6bdeabe3a222.png?v=1758179484&width=1946",
       "cat": "men",
       "discription": "A modern classic built for everyday comfort. The Nike Air Max 90 keeps the legendary visible Air unit while refreshing its design with breathable materials and refined details for timeless appeal.",
-      "stoke": 7,
+      "stoke": "9",
       "premium": false
     },
     {
@@ -400,7 +489,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/5_d7d9ad3a-4096-4104-86cc-e327fba8cc3a.png?v=1755076375&width=1946",
       "cat": "men",
       "discription": "A bold expression of futuristic comfort. The New Balance 9060 blends chunky Y2K aesthetics with plush cushioning — perfect for those who demand both statement style and unmatched support.",
-      "stoke": 9,
+      "stoke": "10",
       "premium": true
     },
     {
@@ -550,7 +639,7 @@
       "image": "https://www.superkicks.in/cdn/shop/files/4_191d756b-2cfa-4482-acb7-683b0963014c.png?v=1760527709&width=493",
       "cat": "men",
       "discription": "A bold fusion of heritage and innovation, the Nike Air Max 90 N7 features vibrant colorways and the iconic Max Air cushioning, delivering both style and comfort.",
-      "stoke": 10,
+      "stoke": 11,
       "premium": false
     },
     {

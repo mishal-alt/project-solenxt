@@ -47,7 +47,7 @@ const ManageProducts = () => {
 
   const handleEdit = (product) => {
     setEditingProduct(product);
-    setFormData({ ...product });
+    setFormData({ ...product });  
     setShowModal(true);
   };
 

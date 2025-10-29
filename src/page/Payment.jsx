@@ -1,3 +1,4 @@
+// src/user/Payment.jsx
 // Importing required dependencies and assets
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -49,8 +50,10 @@ function Payment() {
         setCardInfo({ ...cardInfo, [name]: value });
     };
 
-    // ✅ Function to place an order
-    const placeOrder = () => {
+    // =========================================================================
+    // ✅ Function to place an order - FIXED LOGIC TO UPDATE BACKEND
+    // =========================================================================
+    const placeOrder = async () => {
         // Validate billing fields
         if (!billingInfo.name || !billingInfo.address || !billingInfo.city) {
             toast.error("Please fill all billing details");
@@ -59,13 +62,28 @@ function Payment() {
 
         // Validate card info if card payment is selected
         if (paymentMethod === "card" && (!cardInfo.number || !cardInfo.expiry || !cardInfo.cvv)) {
-            toast.error("Please fill all billing details");
+            toast.error("Please fill all card details");
             return;
         }
 
-        // Get logged-in user
+        // Get logged-in user from localStorage
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        if (!currentUser) return;
+        if (!currentUser) {
+            toast.error("User not logged in.");
+            return;
+        }
+
+        // 1. Fetch the LATEST user data from the backend to prevent overwriting recent changes
+        let userFromBackend;
+        try {
+            const res = await fetch(`http://localhost:3001/users/${currentUser.id}`);
+            if (!res.ok) throw new Error("Failed to fetch latest user data.");
+            userFromBackend = await res.json();
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            toast.error("Error confirming order details. Please try again.");
+            return;
+        }
 
         // ✅ Create a new order object
         const newOrder = {
@@ -74,27 +92,45 @@ function Payment() {
             billingInfo,
             total,
             paymentMethod,
-            cardInfo: paymentMethod === "card" ? cardInfo : null, // Store card info only if used
-            date: new Date(),
+            cardInfo: paymentMethod === "card" ? cardInfo : null,
+            date: new Date().toISOString(), // Use ISO string for reliable storage/sorting
             status: "Pending",
         };
 
-        // ✅ Add the new order to user's orders array
-        currentUser.orders = currentUser.orders ? [...currentUser.orders, newOrder] : [newOrder];
+        // ✅ Prepare updated user data for backend
+        const updatedUser = {
+            ...userFromBackend, // Start with the latest data from the server
+            orders: userFromBackend.orders ? [...userFromBackend.orders, newOrder] : [newOrder],
+            cart: [], // Clear cart
+        };
 
-        // ✅ Clear cart after placing order
-        currentUser.cart = [];
+        // 2. Send the updated user object (with new order) to the backend API
+        try {
+            await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+                method: "PUT", // PUT replaces the entire user record
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedUser),
+            });
+            
+            // 3. Update the local storage with the new, confirmed data
+            currentUser.orders = updatedUser.orders;
+            currentUser.cart = updatedUser.cart;
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+            
+            // 4. Show success state and redirect
+            setOrderSuccess(true);
+            toast.success("Order placed successfully!");
+            
+            setTimeout(() => {
+                navigate("/order"); 
+            }, 2000);
 
-        // ✅ Save updated user data to localStorage
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-
-        // ✅ Show success state and toast notification
-        setOrderSuccess(true);
-        toast.success("Order placed successfully!");
-
-        // ✅ Redirect to Order page after 2 seconds
-        setTimeout(() => navigate("/order"), 2000);
+        } catch (err) {
+            console.error("Error placing order and updating backend:", err);
+            toast.error("Order failed to save permanently. Please check your network.");
+        }
     };
+    // =========================================================================
 
     // ✅ When order is successfully placed, show success animation
     if (orderSuccess) {
