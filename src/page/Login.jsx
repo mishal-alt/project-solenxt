@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { BASE_URL } from "../services/api";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const LoginForm = () => {
 
     setErrors({});
     try {
-      const response = await axios.get("http://localhost:3001/users");
+      const response = await axios.get(`${BASE_URL}/users`);
       const users = response.data;
 
       // Find user by email & password (plain text)
