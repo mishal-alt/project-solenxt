@@ -4,6 +4,7 @@ import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import CountUp from "react-countup";
 import { Pencil, Trash2, Plus, X } from "lucide-react";
+import { BASE_URL } from "../services/api";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +31,7 @@ const ManageProducts = () => {
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:3001/products")
+      .get(`${BASE_URL}/products`)
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error fetching products:", err));
   };
@@ -55,9 +56,9 @@ const ManageProducts = () => {
     e.preventDefault();
     try {
       if (editingProduct) {
-        await axios.put(`http://localhost:3001/products/${editingProduct.id}`, formData);
+        await axios.put(`${BASE_URL}/products/${editingProduct.id}`, formData);
       } else {
-        await axios.post("http://localhost:3001/products", formData);
+        await axios.post(`${BASE_URL}/products`, formData);
       }
       setShowModal(false);
       fetchProducts();
@@ -69,7 +70,7 @@ const ManageProducts = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:3001/products/${id}`);
+        await axios.delete(`${BASE_URL}/products/${id}`);
         fetchProducts();
       } catch (err) {
         console.error("Error deleting product:", err);

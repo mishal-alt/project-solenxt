@@ -25,7 +25,7 @@ import ManageProducts from "./admin/ManageProducts";
 import ManageUsers from "./admin/ManageUsers";
 import Orders from "./admin/Orders";
 
-// ✅ Added layout wrapper to hide navbar/footer on admin routes
+//  Added layout wrapper to hide navbar/footer on admin routes
 function LayoutWrapper({ children }) {
   const location = useLocation();
   const hideLayout = location.pathname.startsWith('/admin'); // hide for admin

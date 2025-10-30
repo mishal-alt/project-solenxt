@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar";
 import axios from "axios";
 import CountUp from "react-countup";
+import { BASE_URL } from "../services/api";
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -14,8 +15,8 @@ const Orders = () => {
     const fetchData = async () => {
         try {
             const [usersRes, productsRes] = await Promise.all([
-                axios.get("http://localhost:3001/users"),
-                axios.get("http://localhost:3001/products"),
+                axios.get(`${BASE_URL}/users`),
+                axios.get(  `${BASE_URL}/products`),
             ]);
             
             const fetchedUsers = usersRes.data;
@@ -69,7 +70,7 @@ const Orders = () => {
             }
 
             productUpdates.push(
-                axios.patch(`http://localhost:3001/products/${item.id}`, { stoke: newStock.toString() })
+                axios.patch(`${BASE_URL}/products/${item.id}`, { stoke: newStock.toString() })
             );
         }
         await Promise.all(productUpdates);
@@ -87,7 +88,7 @@ const Orders = () => {
             const newStock = currentStock + item.quantity;
 
             productUpdates.push(
-                axios.patch(`http://localhost:3001/products/${item.id}`, { stoke: newStock.toString() })
+                axios.patch(`${BASE_URL}/products/${item.id}`, { stoke: newStock.toString() })
             );
         }
         await Promise.all(productUpdates);
@@ -132,7 +133,7 @@ const Orders = () => {
             const updatedUser = { ...userToUpdate, orders: updatedUserOrders };
 
             // 3. Update the user on the server (using PUT to replace the user record with new orders)
-            await axios.put(`http://localhost:3001/users/${userId}`, updatedUser);
+            await axios.put(`${BASE_URL}/users/${userId}`, updatedUser);
 
             // 4. Update local state
             setUsers(prevUsers => prevUsers.map(u => u.id === userId ? updatedUser : u));
@@ -141,7 +142,7 @@ const Orders = () => {
             ));
 
             // 5. Re-fetch products to update the local stock state, reflecting the deduction/restoration
-            const productsRes = await axios.get("http://localhost:3001/products");
+            const productsRes = await axios.get("${BASE_URL}/products");
             setProducts(productsRes.data);
 
             alert(`Order ${orderId} status successfully updated to ${newStatus}.`);

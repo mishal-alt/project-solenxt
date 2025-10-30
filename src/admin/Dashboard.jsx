@@ -4,6 +4,7 @@ import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 import CountUp from "react-countup";
+import BASE_URL from "../services/api"
 
 const Dashboard = () => {
   // Initializing state with empty arrays, as the data will be fetched/loaded
@@ -13,8 +14,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Fetches data from the local JSON server
-    axios.get("http://localhost:3001/users").then(res => setUsers(res.data));
-    axios.get("http://localhost:3001/products").then(res => setProducts(res.data));
+    axios.get(`${BASE_URL}/users`).then(res => setUsers(res.data));
+    axios.get(`${BASE_URL}/products`).then(res => setProducts(res.data));
   }, []);
   
   // Calculate total number of orders/sales (count of order objects)

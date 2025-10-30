@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import CountUp from "react-countup";
+import { BASE_URL } from "../services/api";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -14,18 +15,18 @@ const ManageUsers = () => {
   }, []);
 
   const fetchUsers = () => {
-    axios.get("http://localhost:3001/users").then((res) => setUsers(res.data));
+    axios.get(`${BASE_URL}/users`).then((res) => setUsers(res.data));
   };
 
   // ✅ Toggle Admin Status
   const handleMakeAdmin = async (id, isAdmin) => {
-    await axios.patch(`http://localhost:3001/users/${id}`, { isAdmin: !isAdmin });
+    await axios.patch(`${BASE_URL}/users/${id}`, { isAdmin: !isAdmin });
     fetchUsers();
   };
 
   // ✅ Toggle Block Status
   const handleBlockUser = async (id, isBlock) => {
-    await axios.patch(`http://localhost:3001/users/${id}`, { isBlock: !isBlock });
+    await axios.patch(`${BASE_URL}/users/${id}`, { isBlock: !isBlock });
     fetchUsers();
   };
 
