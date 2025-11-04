@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; 
 import { FaHeart } from "react-icons/fa";
-
+import { BASE_URL } from "../services/api";
 
 function Wishlist() {
 
-  
   const [wishlist, setWishlist] = useState([]); // store user wishlist product IDs
   const [products, setProducts] = useState([]); // store all available products from DB
   const [cart, setCart] = useState([]); // store user's cart items
@@ -13,14 +12,13 @@ function Wishlist() {
     JSON.parse(localStorage.getItem("currentUser")) 
   );
 
- 
   useEffect(() => {
     if (currentUser) {
       setWishlist(currentUser.wishlist || []); 
       setCart(currentUser.cart || []); 
     }
 
-    fetch("http://localhost:3001/products")
+    fetch(`${BASE_URL}/products`)
       .then((res) => res.json()) 
       .then((data) => setProducts(data)) 
       .catch((err) => console.log(err)); 
@@ -28,18 +26,16 @@ function Wishlist() {
 
   const updateUserData = async (updatedData) => {
     if (!currentUser) return; 
-    await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+    await fetch(`${BASE_URL}/users/${currentUser.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedData),
     });
   };
 
- 
   const removeFromWishlist = async (id) => {
     if (!currentUser) return;
 
-   
     const updatedWishlist = (currentUser.wishlist || []).filter(
       (item) => item !== id
     );
@@ -54,7 +50,6 @@ function Wishlist() {
 
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
-
 
   const addToCart = async (product) => {
     if (!currentUser) return;

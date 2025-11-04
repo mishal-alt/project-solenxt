@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../services/api"; // ✅ Imported BASE_URL
 
 function Cart() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Cart() {
     if (!currentUser) return;
 
     try {
-      await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+      await fetch(`${BASE_URL}/users/${currentUser.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cart: updatedCart }),
@@ -31,9 +32,7 @@ function Cart() {
     localStorage.setItem("currentUser", JSON.stringify(user));
     await updateUserCart(updatedCart);
 
-    // 🔹 Notify Navbar about cart changes
     if (updatedCart.length === 0) {
-      // ✅ If cart empty, fire "cartCleared" event to reset Navbar count
       window.dispatchEvent(new Event("cartCleared"));
     } else {
       window.dispatchEvent(new Event("cartUpdated"));
@@ -130,7 +129,6 @@ function Cart() {
             <button
               onClick={() => {
                 navigate("/payment");
-                // ✅ Optional: trigger event before navigating
                 if (cart.length === 0) {
                   window.dispatchEvent(new Event("cartCleared"));
                 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../services/api"; // ✅ added
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -56,18 +57,17 @@ const Signup = () => {
 
     if (Object.keys(newErrors).length === 0) {
       try {
-        const existingUsers = await axios.get("http://localhost:3001/users");
+        const existingUsers = await axios.get(`${BASE_URL}/users`); // ✅ updated
         if (existingUsers.data.some((user) => user.email === form.email)) {
           setError({ email: "Email already exists" });
           return;
         }
 
-        // ✅ Store password in plain text (no hashing)
         const newUser = {
           joinDate: new Date().toISOString(),
           fullName: form.fullName,
           email: form.email,
-          password: form.password, // plain password
+          password: form.password,
           isBlock: false,
           isAdmin: false,
           cart: [],
@@ -75,11 +75,9 @@ const Signup = () => {
           orders: [],
         };
 
-        // Save new user to JSON server and get the assigned id
-        const response = await axios.post("http://localhost:3001/users", newUser);
-        const savedUser = response.data; // includes id
+        const response = await axios.post(`${BASE_URL}/users`, newUser); // ✅ updated
+        const savedUser = response.data;
 
-        // Store saved user in localStorage
         localStorage.setItem("currentUser", JSON.stringify(savedUser));
 
         toast.success("Registered successfully!");
@@ -87,7 +85,7 @@ const Signup = () => {
         setForm({ fullName: "", email: "", password: "", confirmPassword: "" });
 
         navigate("/");
-        window.location.reload(); // refresh current page after success
+        window.location.reload();
       } catch (err) {
         console.error(err);
         toast.error("Something went wrong. Please try again.");
@@ -170,7 +168,9 @@ const Signup = () => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none transition-all"
             />
             {error.confirmPassword && (
-              <p className="text-red-600 text-sm mt-1">{error.confirmPassword}</p>
+              <p className="text-red-600 text-sm mt-1">
+                {error.confirmPassword}
+              </p>
             )}
           </div>
 

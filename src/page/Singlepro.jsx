@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Truck, CreditCard, RefreshCw } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { BASE_URL } from "../services/api";
 
 function Singleproduct() {
   const { id } = useParams(); // Get product ID from URL
@@ -21,7 +22,7 @@ function Singleproduct() {
   const updateUserData = async (updatedData) => {
     if (!currentUser) return; 
     try {
-      await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+      await fetch(`${BASE_URL}/users/${currentUser.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData), 
@@ -69,7 +70,7 @@ function Singleproduct() {
   useEffect(() => {
     setLoading(true); 
 
-    fetch(`http://localhost:3001/products/${id}`) 
+    fetch(`${BASE_URL}/products/${id}`) 
       .then((res) => {
         if (!res.ok) {
           throw new Error('Product not found or server error'); 
@@ -184,4 +185,4 @@ function Singleproduct() {
   );
 }
 
-export default Singleproduct; 
+export default Singleproduct;
