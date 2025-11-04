@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
-import { FiHeart } from "react-icons/fi"; 
+import { Link, useNavigate } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../services/api"; // ✅ added this line
@@ -8,34 +8,33 @@ import { BASE_URL } from "../services/api"; // ✅ added this line
 function Product() {
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState([]); // Stores all products fetched from DB
-  const [searchTerm, setSearchTerm] = useState(""); // Stores the search input text
-  const [categoryFilter, setCategoryFilter] = useState("all"); // "all", "men", "women", "premium"
-  const [sortOrder, setSortOrder] = useState(""); // Sorting: "lowToHigh" or "highToLow"
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("");
   const [currentUser, setCurrentUser] = useState(
-    () => JSON.parse(localStorage.getItem("currentUser")) // Load current logged-in user from localStorage
+    () => JSON.parse(localStorage.getItem("currentUser"))
   );
-  const [wishlist, setWishlist] = useState(currentUser?.wishlist || []); // User's wishlist IDs
-  const [cart, setCart] = useState(currentUser?.cart || []); // User's cart products
-  const [currentPage, setCurrentPage] = useState(1); // For pagination (tracks which page we are on)
-  const itemsPerPage = 8; // Number of products to show per page
+  const [wishlist, setWishlist] = useState(currentUser?.wishlist || []);
+  const [cart, setCart] = useState(currentUser?.cart || []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
-  
   useEffect(() => {
-    fetch(`${BASE_URL}/products`) // ✅ changed only this line
+    fetch(`${BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
   }, []);
 
   const updateUserData = async (updatedData) => {
-    if (!currentUser) return; // Prevents running if no user logged in
+    if (!currentUser) return;
 
     try {
-      await fetch(`${BASE_URL}/users/${currentUser.id}`, { // ✅ changed this line
+      await fetch(`${BASE_URL}/users/${currentUser.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData), // Send updated data 
+        body: JSON.stringify(updatedData),
       });
     } catch (error) {
       console.error("Error updating user in DB:", error);
@@ -207,26 +206,39 @@ function Product() {
                   </p>
                 </Link>
 
+                {/* ✅ Updated button section */}
                 {isInCart ? (
                   <button
                     onClick={() => {
                       if (!currentUser) navigate("/login");
-                      else navigate("/cart");
+                      else if (product.stoke > 0) navigate("/cart");
+                      else toast.error("This product is out of stock!");
                     }}
-                    className="mt-3 w-full py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white transition"
+                    disabled={product.stoke <= 0}
+                    className={`mt-3 w-full py-2 rounded-xl ${
+                      product.stoke <= 0
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                    } text-white transition`}
                   >
-                    Go to Cart
+                    {product.stoke <= 0 ? "Out of Stock" : "Go to Cart"}
                   </button>
                 ) : (
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={() => {
+                      if (product.stoke > 0) addToCart(product);
+                      else toast.error("This product is out of stock!");
+                    }}
+                    disabled={product.stoke <= 0}
                     className={`mt-3 w-full py-2 rounded-xl ${
-                      currentUser
+                      product.stoke <= 0
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : currentUser
                         ? "bg-black hover:bg-gray-900"
                         : "bg-gray-500 cursor-not-allowed"
                     } text-white transition`}
                   >
-                    Add to Cart
+                    {product.stoke <= 0 ? "Out of Stock" : "Add to Cart"}
                   </button>
                 )}
               </div>

@@ -5,18 +5,15 @@ import { toast } from 'react-toastify';
 import { BASE_URL } from "../services/api";
 
 function Singleproduct() {
-  const { id } = useParams(); // Get product ID from URL
+  const { id } = useParams(); 
   const navigate = useNavigate(); 
   const [product, setProduct] = useState(null); 
   const [loading, setLoading] = useState(true); 
 
-  //  user and cart states
   const [currentUser, setCurrentUser] = useState(
     () => JSON.parse(localStorage.getItem("currentUser"))
   );
   const [cart, setCart] = useState(currentUser?.cart || []); 
-
-  // size 
   const [selectedSize, setSelectedSize] = useState(null); 
 
   const updateUserData = async (updatedData) => {
@@ -32,11 +29,15 @@ function Singleproduct() {
     }
   };
 
-  
   const addToCart = async (product) => {
     if (!currentUser) { 
       toast.error("Please login first to add products to cart!"); 
       navigate("/login"); 
+      return;
+    }
+
+    if (product.stoke <= 0) {
+      toast.error("This product is out of stock!");
       return;
     }
 
@@ -45,7 +46,6 @@ function Singleproduct() {
       return;
     }
 
-    
     const isAlreadyInCart = cart.some(
       (item) => item.id === product.id && item.size === selectedSize
     );
@@ -66,7 +66,6 @@ function Singleproduct() {
     toast.success(`Added size ${selectedSize} to cart!`);
   };
 
- 
   useEffect(() => {
     setLoading(true); 
 
@@ -88,12 +87,10 @@ function Singleproduct() {
       });
   }, [id]);
 
-  
   if (loading) {
     return <div className="text-center py-10">Loading product details...</div>;
   }
 
-  
   if (!product) {
     return <div className="text-center py-10 text-red-600">Product not found.</div>;
   }
@@ -104,7 +101,6 @@ function Singleproduct() {
         <h1 className="text-4xl font-extrabold mb-8">{product.name}</h1>
 
         <div className="flex flex-col md:flex-row gap-10">
-
           <div className="md:w-1/2">
             <img
               src={product.image}
@@ -113,12 +109,10 @@ function Singleproduct() {
             />
           </div>
 
-     
           <div className="md:w-1/2 space-y-4 mt-10">
             <p className="text-3xl font-bold text-white">₹{product.price}</p>
             <p className="text-lg text-gray-300">{product.discription}</p>
 
-            
             <p
               className={
                 product.stoke > 0 ? 'text-green-500' : 'text-red-600 font-bold'
@@ -129,7 +123,6 @@ function Singleproduct() {
                 : 'Out of Stock'}
             </p>
 
-            
             <div className="flex gap-3 flex-wrap mt-10">
               {['7', '8', '9', '10', '11'].map((size) => (
                 <div
@@ -146,24 +139,36 @@ function Singleproduct() {
               ))}
             </div>
 
-            
+            {/* ✅ Updated button logic for stock check */}
             {cart.some((item) => item.id === product.id && item.size === selectedSize) ? (
               <button
-                onClick={() => navigate("/cart")}
-                className="w-full bg-green-600 text-white py-3 rounded-xl text-lg font-semibold hover:bg-green-700 transition mt-8"
+                onClick={() => {
+                  if (product.stoke > 0) navigate("/cart");
+                  else toast.error("This product is out of stock!");
+                }}
+                disabled={product.stoke <= 0}
+                className={`w-full py-3 rounded-xl text-lg font-semibold transition mt-8 ${
+                  product.stoke <= 0
+                    ? "bg-gray-500 cursor-not-allowed text-white"
+                    : "bg-green-600 hover:bg-green-700 text-white"
+                }`}
               >
-                Go to Cart
+                {product.stoke <= 0 ? "Out of Stock" : "Go to Cart"}
               </button>
             ) : (
               <button
                 onClick={() => addToCart(product)}
-                className="w-full bg-cyan-500 text-white py-3 rounded-xl text-lg font-semibold hover:bg-cyan-600 transition mt-8"
+                disabled={product.stoke <= 0}
+                className={`w-full py-3 rounded-xl text-lg font-semibold transition mt-8 ${
+                  product.stoke <= 0
+                    ? "bg-gray-500 cursor-not-allowed text-white"
+                    : "bg-cyan-500 hover:bg-cyan-600 text-white"
+                }`}
               >
-                Add to Cart
+                {product.stoke <= 0 ? "Out of Stock" : "Add to Cart"}
               </button>
             )}
 
-            {/* Icons Section */}
             <div className="flex justify-around mt-12 text-sm text-gray-300">
               <div className="flex flex-col items-center space-y-1">
                 <Truck className="w-6 h-6 text-cyan-500" /> 
